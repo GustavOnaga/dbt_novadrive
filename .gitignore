@@ -3,3 +3,4 @@ venv/
 target q
 dbt_packages/
 logs/
+profiles.yml
