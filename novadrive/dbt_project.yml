@@ -1,7 +1,7 @@
-name: 'novadrive'
+name: 'dbt_novadrive'
 version: '1.0.0'
 
-profile: 'novadrive'
+profile: 'dbt_novadrive'
 
 model-paths: ["models"]
 analysis-paths: ["analyses"]
@@ -15,11 +15,21 @@ clean-targets:         # directories to be removed by `dbt clean`
   - "dbt_packages"
 
 
+seeds:
+  dbt_novadrive:
+    +schema: raw_novadrive
+
 models:
-  novadrive:
-    stage:
-      +schema: STG
+  dbt_novadrive:
+
+    staging:
+      +schema: stg_novadriva  # O dbt usará como base 'stg_novadriva'
+      +materialized: view
+
     intermediate:
-      +schema: INT
+          +schema: int_novadriva
+          +materialized: view
+
     marts:
-      +schema: MARTS
+          +schema: mart_novadriva
+          +materialized: table
