@@ -1,8 +1,8 @@
 name: CI/CD Pipeline
 
 on:
-  push:
-    pull_request:
+  pull_request:
+    branches:
       - main
 
   workflow_dispatch:
@@ -10,7 +10,12 @@ on:
 jobs:
   build:
     runs-on: ubuntu-latest
-    environment: venv
+    environment: venv-dbt-novadrive
+    
+    env:
+      DATABRICKS_HOST: ${{ secrets.DATABRICKS_HOST }}
+      DATABRICKS_HTTP_PATH: ${{ secrets.DATABRICKS_HTTP_PATH }}
+      DATABRICKS_TOKEN: ${{ secrets.DATABRICKS_DEV_TOKEN }}
 
     steps:
       - name: Checkout repository
