@@ -16,6 +16,7 @@ jobs:
       DATABRICKS_HOST: ${{ secrets.DATABRICKS_HOST }}
       DATABRICKS_HTTP_PATH: ${{ secrets.DATABRICKS_HTTP_PATH }}
       DATABRICKS_TOKEN: ${{ secrets.DATABRICKS_TOKEN }}
+      DBT_ENV: ${{ vars.DATABRICKS_ENV }}
 
     steps:
       - name: Checkout repository
