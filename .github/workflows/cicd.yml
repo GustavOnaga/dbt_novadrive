@@ -32,13 +32,17 @@ jobs:
           pip install -r requirements.txt
 
       - name: dbt debug
+        working-directory: ./novadrive
         run: dbt debug
 
       - name: dbt deps
+        working-directory: ./novadrive
         run: dbt deps
 
       - name: dbt parse
+        working-directory: ./novadrive
         run: dbt parse
 
       - name: dbt build
+        working-directory: ./novadrive
         run: dbt build      
