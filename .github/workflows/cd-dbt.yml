@@ -1,16 +1,21 @@
-name: CI/CD Pipeline
+name: CD Pipeline
 
 on:
   push:
     branches:
       - main
 
-    workflow_dispatch:
+  workflow_dispatch:
   
 jobs:
-  build:
+  dbt-ci:
     runs-on: ubuntu-latest
-    environment: venv
+    environment: prd-novadrive
+    
+    env:
+      DATABRICKS_HOST: ${{ secrets.DATABRICKS_HOST }}
+      DATABRICKS_HTTP_PATH: ${{ secrets.DATABRICKS_HTTP_PATH }}
+      DATABRICKS_TOKEN: ${{ secrets.DATABRICKS_TOKEN }}
 
     steps:
       - name: Checkout repository
@@ -20,20 +25,17 @@ jobs:
         uses: actions/setup-python@v5
         with:
           python-version: "3.12"
+          cache: "pip"
       
       - name: Install dependencies
         run: |
           python -m pip install --upgrade pip
           pip install -r requirements.txt
 
-      - name: dbt debug
-        run: dbt debug
-
       - name: dbt deps
+        working-directory: ./novadrive
         run: dbt deps
 
-      - name: dbt parse
-        run: dbt parse
-
       - name: dbt build
+        working-directory: ./novadrive
         run: dbt build      
