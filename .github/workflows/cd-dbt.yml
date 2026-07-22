@@ -8,7 +8,7 @@ on:
   workflow_dispatch:
   
 jobs:
-  dbt-ci:
+  dbt-cd:
     runs-on: ubuntu-latest
     environment: prd-novadrive
     
