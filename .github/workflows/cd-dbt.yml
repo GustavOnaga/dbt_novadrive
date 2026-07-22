@@ -1,25 +1,21 @@
-name: CI/CD Pipeline
+name: CD Pipeline
 
 on:
-  # pull_request:
-  #   branches:
-  #     - main
-  
   push:
     branches:
-      - develop
+      - main
 
   workflow_dispatch:
   
 jobs:
   dbt-ci:
     runs-on: ubuntu-latest
-    environment: venv-dbt-novadrive
+    environment: prd-novadrive
     
     env:
       DATABRICKS_HOST: ${{ secrets.DATABRICKS_HOST }}
       DATABRICKS_HTTP_PATH: ${{ secrets.DATABRICKS_HTTP_PATH }}
-      DATABRICKS_DEV_TOKEN: ${{ secrets.DATABRICKS_DEV_TOKEN }}
+      DATABRICKS_TOKEN: ${{ secrets.DATABRICKS_TOKEN }}
 
     steps:
       - name: Checkout repository
@@ -39,14 +35,6 @@ jobs:
       - name: dbt deps
         working-directory: ./novadrive
         run: dbt deps
-
-      - name: dbt debug
-        working-directory: ./novadrive
-        run: dbt debug
-
-      - name: dbt parse
-        working-directory: ./novadrive
-        run: dbt parse
 
       - name: dbt build
         working-directory: ./novadrive
