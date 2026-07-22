@@ -23,13 +23,13 @@ models:
   dbt_novadrive:
 
     staging:
-      +schema: stg_novadriva  # O dbt usará como base 'stg_novadriva'
+      +schema: "{{ env_var('DBT_ENV') }}_stg_novadrive"  # O dbt usará como base 'stg_novadriva'
       +materialized: view
 
     intermediate:
-          +schema: int_novadriva
+          +schema: "{{ env_var('DBT_ENV') }}_int_novadrive"
           +materialized: view
 
     marts:
-          +schema: mart_novadriva
+          +schema: "{{ env_var('DBT_ENV') }}_mart_novadrive"
           +materialized: table
